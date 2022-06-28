@@ -6,7 +6,7 @@
 
 Golang Gin boilerplate with Postgres database resource. Supports multiple configuration environments.
 
-![](golang.jpg)
+![](golang.png)
 
 ## Installation
 First, you need to implement your own environment by copying `.example.env` into `.env`.
@@ -26,7 +26,9 @@ Example call: `http://localhost:8080/api/auth/login`
 ## Release History
 
 * version 0.0.1
-    * Configuration by environment, Authentication and Log middlewares, User entity.
+    * Configuration by environment, 
+    * Authentication 
+    * Entities: User, Token, Question
 
 [go-image]: https://img.shields.io/badge/Go--version-1.18-blue.svg
 [go-url]: https://golang.org/doc/go1.18
