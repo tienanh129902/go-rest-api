@@ -8,38 +8,6 @@ Golang Gin boilerplate with Postgres database resource. Supports multiple config
 
 ![](golang.jpg)
 
-### Boilerplate structure
-
-```
-├── config
-│   ├── config.go
-├── constants
-│   ├── auth.const.go
-│   ├── router.const.go
-├── controllers
-│   └── user.controller.go
-│   └── auth.controller.go
-├── datatransfers
-│   └── user.dto.go
-│   └── response.dto.go
-│   └── auth.dto.go
-├── middlewares
-│   └── auth.go
-│   └── cors.go
-├── models
-│   └── user.model.go
-├── routers
-│   └── router.go
-├── utils
-│   ├── utils.go
-├── .env
-├── .gitignore
-├── go.mod
-├── go.sum
-├── main.go
-├── README.md
-```
-
 ## Installation
 First, you need to implement your own environment by copying `.example.env` into `.env`.
 Then replacing with your own database's information.
