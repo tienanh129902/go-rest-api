@@ -21,7 +21,7 @@ go run main.go
 ```
 
 ## Usage example
-Example call: `http://localhost:8080/api/auth/login`
+Example call: `http://localhost:8080/api/v1/auth/login`
 
 ## Release History
 
