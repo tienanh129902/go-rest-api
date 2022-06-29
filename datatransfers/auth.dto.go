@@ -8,15 +8,9 @@ import (
 )
 
 type JWTClaims struct {
-	ID        uint  `json:"sub,omitempty"`
+	Sub       uint  `json:"sub,omitempty"`
 	ExpiresAt int64 `json:"exp,omitempty"`
 	IssuedAt  int64 `json:"iat,omitempty"`
-}
-
-type AuthKey struct {
-	IsAuthenticatedKey bool
-	UserIDKey          uint
-	IsAuthorizedKey    bool
 }
 
 func (c JWTClaims) Valid(helper *jwt.ValidationHelper) (err error) {

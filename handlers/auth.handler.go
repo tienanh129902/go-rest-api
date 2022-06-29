@@ -23,10 +23,10 @@ type AuthHandlerFunction interface {
 
 func generateAccessToken(user models.User) string {
 	now := time.Now()
-	expiredTime, _ := time.ParseDuration(config.AppConfig.RefreshTokenExpired)
+	expiredTime, _ := time.ParseDuration(config.AppConfig.AccessTokenExpired)
 	expiry := time.Now().Add(expiredTime)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, datatransfers.JWTClaims{
-		ID:        user.ID,
+		Sub:       user.ID,
 		ExpiresAt: expiry.Unix(),
 		IssuedAt:  now.Unix(),
 	})
@@ -39,10 +39,10 @@ func generateAccessToken(user models.User) string {
 
 func generateRefreshToken(user models.User) string {
 	now := time.Now()
-	expiredTime, _ := time.ParseDuration(config.AppConfig.AccessTokenExpired)
+	expiredTime, _ := time.ParseDuration(config.AppConfig.RefreshTokenExpired)
 	expiry := time.Now().Add(expiredTime)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, datatransfers.JWTClaims{
-		ID:        user.ID,
+		Sub:       user.ID,
 		ExpiresAt: expiry.Unix(),
 		IssuedAt:  now.Unix(),
 	})

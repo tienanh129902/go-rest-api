@@ -18,7 +18,7 @@ type scoreOrm struct {
 }
 
 type ScoreOrmer interface {
-	GetScoreBoardByID(id uint) (board ScoreBoard, err error)
+	GetScoreBoardByUserID(userId uint) (board []ScoreBoard, err error)
 	InsertScoreBoard(board ScoreBoard) (id uint, err error)
 }
 
@@ -27,8 +27,8 @@ func NewScoreBoardOrmer(db *gorm.DB) ScoreOrmer {
 	return &scoreOrm{db}
 }
 
-func (o *scoreOrm) GetScoreBoardByID(id uint) (board ScoreBoard, err error) {
-	result := o.db.Model(&ScoreBoard{}).Where("id = ?", id).First(&board)
+func (o *scoreOrm) GetScoreBoardByUserID(userId uint) (board []ScoreBoard, err error) {
+	result := o.db.Model(&ScoreBoard{}).Where("userid = ?", userId).Limit(10).Find(&board)
 	return board, result.Error
 }
 

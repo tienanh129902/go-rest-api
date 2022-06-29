@@ -10,7 +10,7 @@ import (
 
 func InitializeRouter() (router *gin.Engine) {
 	router = gin.Default()
-	route := router.Group("/api")
+	route := router.Group("/api/v1")
 	route.Use(
 		middleware.CORSMiddleware,
 		middleware.AuthenMiddleware,
@@ -31,14 +31,17 @@ func InitializeRouter() (router *gin.Engine) {
 		question := route.Group("/question")
 		{
 			question.POST("", utils.AuthenOnly, controllers.POST_CreateQuestion)
-			question.GET("", utils.AuthenOnly, controllers.GET_AllQuestions)
 			question.GET("/:id", utils.AuthenOnly, controllers.GET_QuestionById)
 			question.DELETE("/:id", utils.AuthenOnly, controllers.DEL_QuestionById)
 		}
-		answer := route.Group("/answer")
+		play := route.Group("/play")
 		{
-			answer.POST("", utils.AuthenOnly)
-			answer.GET("", utils.AuthenOnly)
+			play.GET("", utils.AuthenOnly, controllers.GET_AllQuestions)
+			play.POST("/submit", utils.AuthenOnly, controllers.POST_UserSubmit)
+		}
+		score := route.Group("/score")
+		{
+			score.GET("/:userid", utils.AuthenOnly, controllers.GET_ScoreBoardByUserId)
 		}
 	}
 	return

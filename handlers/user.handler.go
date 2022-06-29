@@ -44,7 +44,7 @@ func (m *module) Me(c *gin.Context) (id uint) {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, datatransfers.Response{Error: err.Error()})
 		return
 	}
-	if user, err = m.db.userOrmer.GetOneByID(claims.ID); err != nil {
+	if user, err = m.db.userOrmer.GetOneByID(claims.Sub); err != nil {
 		return user.ID
 	}
 	return

@@ -16,6 +16,7 @@ type HandlerFunction interface {
 	UserHandlerFunction
 	QuestionHandlerFunction
 	TokenHandlerFunction
+	ScoreBoardHandlerFunction
 }
 
 var Handler HandlerFunction
@@ -29,6 +30,7 @@ type dbEntity struct {
 	userOrmer     models.UserOrmer
 	questionOrmer models.QuestionOrmer
 	tokenOrmer    models.TokenOrmer
+	scoreOrmer    models.ScoreOrmer
 }
 
 func InitializeHandler() (err error) {
@@ -52,6 +54,7 @@ func InitializeHandler() (err error) {
 			userOrmer:     models.NewUserOrmer(db),
 			questionOrmer: models.NewQuestionOrmer(db),
 			tokenOrmer:    models.NewTokenOrmer(db),
+			scoreOrmer:    models.NewScoreBoardOrmer(db),
 		},
 	}
 	return

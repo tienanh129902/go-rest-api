@@ -14,12 +14,3 @@ func AuthenOnly(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, datatransfers.Response{Error: "user not authenticated"})
 	}
 }
-
-func IsContains(obj string, src []string) bool {
-	for _, v := range src {
-		if v == obj {
-			return true
-		}
-	}
-	return false
-}
