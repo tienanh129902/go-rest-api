@@ -28,7 +28,8 @@ Example call: `http://localhost:8080/api/auth/login`
 * version 0.0.1
     * Configuration by environment, 
     * Authentication 
-    * Entities: User, Token, Question
+    * Entities: User, Token, Question, Score board
+   
 
 [go-image]: https://img.shields.io/badge/Go--version-1.18-blue.svg
 [go-url]: https://golang.org/doc/go1.18
