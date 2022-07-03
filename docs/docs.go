@@ -265,7 +265,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Question data",
-                        "name": "user",
+                        "name": "question",
                         "in": "body",
                         "required": true,
                         "schema": {

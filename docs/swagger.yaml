@@ -255,7 +255,7 @@ paths:
       parameters:
       - description: Question data
         in: body
-        name: user
+        name: question
         required: true
         schema:
           $ref: '#/definitions/datatransfers.QuestionCreate'

@@ -15,7 +15,7 @@ import (
 // @Security ApiKeyAuth
 // @Accept  json
 // @Produce  json
-// @Param user body datatransfers.QuestionCreate true "Question data"
+// @Param question body datatransfers.QuestionCreate true "Question data"
 // @Success 200 {object} datatransfers.Status "Ok"
 // @Failure 400 {object} datatransfers.Error "Bad request"
 // @Failure 401 {object} datatransfers.Error "Unauthorized"
