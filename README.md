@@ -21,7 +21,9 @@ go run main.go
 ```
 
 ## Usage example
-Example call: `http://localhost:8080/api/v1/auth/login`
+Example call: 
+* API url: `http://localhost:8080/api/v1/{apiEndpoint}`
+* Swagger UI url: `http://localhost:8080/swagger/index.html#/`
 
 ## Release History
 
@@ -29,6 +31,10 @@ Example call: `http://localhost:8080/api/v1/auth/login`
     * Configuration by environment, 
     * Authentication 
     * Entities: User, Token, Question, Score board
+
+* version 1.0.1
+    * Add document
+    * Implement swagger UI for endpoints's testing
    
 
 [go-image]: https://img.shields.io/badge/Go--version-1.18-blue.svg

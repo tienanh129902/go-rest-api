@@ -21,7 +21,7 @@ func AuthenMiddleware(c *gin.Context) {
 	}
 	claims, err := handlers.Handler.ParseToken(token, config.AppConfig.JWTSecret)
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, datatransfers.Response{Error: err.Error()})
+		c.AbortWithStatusJSON(http.StatusUnauthorized, datatransfers.Error{Error: err.Error()})
 		return
 	}
 	c.Set(constants.IsAuthenticatedKey, true)

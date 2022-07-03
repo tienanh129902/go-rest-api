@@ -1,0 +1,457 @@
+basePath: /api/v1
+definitions:
+  datatransfers.AnswerSubmit:
+    properties:
+      choices:
+        items:
+          type: string
+        type: array
+      questionId:
+        type: integer
+    type: object
+  datatransfers.AnswerSubmitArray:
+    properties:
+      answerSubmit:
+        items:
+          $ref: '#/definitions/datatransfers.AnswerSubmit'
+        type: array
+      submitAt:
+        type: string
+    type: object
+  datatransfers.Data:
+    properties:
+      data: {}
+    type: object
+  datatransfers.Error:
+    properties:
+      error: {}
+    type: object
+  datatransfers.QuestionCreate:
+    properties:
+      choices:
+        items:
+          type: string
+        type: array
+      content:
+        type: string
+      correctAnswers:
+        items:
+          type: string
+        type: array
+    required:
+    - choices
+    - content
+    - correctAnswers
+    type: object
+  datatransfers.Status:
+    properties:
+      status: {}
+    type: object
+  datatransfers.Token:
+    properties:
+      access_token: {}
+      refresh_token: {}
+    type: object
+  datatransfers.UserInfo:
+    properties:
+      bio:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      username:
+        type: string
+    type: object
+  datatransfers.UserLogin:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  datatransfers.UserLogout:
+    properties:
+      refreshToken:
+        type: string
+    required:
+    - refreshToken
+    type: object
+  datatransfers.UserSignup:
+    properties:
+      bio:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a basic API for a quiz game using Gin and Gorm.
+  title: Quiz game API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User info
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/datatransfers.UserLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ok
+          schema:
+            $ref: '#/definitions/datatransfers.Token'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+      summary: Login user
+      tags:
+      - Authentication
+  /auth/logout:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Refresh token
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/datatransfers.UserLogout'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ok
+          schema:
+            $ref: '#/definitions/datatransfers.Status'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Logout user
+      tags:
+      - Authentication
+  /auth/signup:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User info
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/datatransfers.UserSignup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ok
+          schema:
+            $ref: '#/definitions/datatransfers.Status'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+      summary: user registration
+      tags:
+      - Authentication
+  /play:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ok
+          schema:
+            $ref: '#/definitions/datatransfers.Data'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: List all questions
+      tags:
+      - Play
+  /play/submit:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: List of answer per question
+        in: body
+        name: answerArray
+        required: true
+        schema:
+          $ref: '#/definitions/datatransfers.AnswerSubmitArray'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Ok
+          schema:
+            $ref: '#/definitions/datatransfers.Data'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Submit survey
+      tags:
+      - Play
+  /question:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Question data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/datatransfers.QuestionCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ok
+          schema:
+            $ref: '#/definitions/datatransfers.Status'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Create question
+      tags:
+      - Question
+  /question/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Question ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ok
+          schema:
+            $ref: '#/definitions/datatransfers.Status'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+      summary: Delete question
+      tags:
+      - Question
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Question ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ok
+          schema:
+            $ref: '#/definitions/datatransfers.Data'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Get question by ID
+      tags:
+      - Question
+  /score/{userid}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: User ID
+        in: path
+        name: userid
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ok
+          schema:
+            $ref: '#/definitions/datatransfers.Data'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Get score board by user ID
+      tags:
+      - Scoreboard
+  /user/:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/datatransfers.UserInfo'
+        "400":
+          description: We need ID!!
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+        "404":
+          description: Can not find user
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user data
+      tags:
+      - User
+  /user/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/datatransfers.UserInfo'
+        "400":
+          description: We need ID!!
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+        "404":
+          description: Can not find user
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Show user info
+      tags:
+      - User
+  /user/me:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/datatransfers.UserInfo'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/datatransfers.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Show current user
+      tags:
+      - User
+schemes:
+- http
+- https
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

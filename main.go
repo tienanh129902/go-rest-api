@@ -20,6 +20,16 @@ func init() {
 	}
 }
 
+// @title Quiz game API
+// @version 1.0
+// @description This is a basic API for a quiz game using Gin and Gorm.
+// @schemes http https
+// @host localhost:8080
+// @BasePath /api/v1
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
+
 func main() {
 	if err := handlers.InitializeHandler(); err != nil {
 		log.Fatalln(err)

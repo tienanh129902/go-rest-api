@@ -41,7 +41,7 @@ func (m *module) Me(c *gin.Context) (id uint) {
 	fmt.Println(token)
 	claims, err := Handler.ParseToken(token, config.AppConfig.JWTSecret)
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, datatransfers.Response{Error: err.Error()})
+		c.AbortWithStatusJSON(http.StatusUnauthorized, datatransfers.Error{Error: err.Error()})
 		return
 	}
 	if user, err = m.db.userOrmer.GetOneByID(claims.Sub); err != nil {

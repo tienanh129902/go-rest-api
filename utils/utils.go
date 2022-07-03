@@ -11,6 +11,6 @@ import (
 
 func AuthenOnly(c *gin.Context) {
 	if !c.GetBool(constants.IsAuthenticatedKey) {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, datatransfers.Response{Error: "user not authenticated"})
+		c.AbortWithStatusJSON(http.StatusUnauthorized, datatransfers.Error{Error: "user not authenticated"})
 	}
 }

@@ -2,6 +2,9 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	_ "github.com/tienanh129902/go-rest-api/docs"
 
 	"github.com/tienanh129902/go-rest-api/controllers"
 	middleware "github.com/tienanh129902/go-rest-api/middlewares"
@@ -44,5 +47,7 @@ func InitializeRouter() (router *gin.Engine) {
 			score.GET("/:userid", utils.AuthenOnly, controllers.GET_ScoreBoardByUserId)
 		}
 	}
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	router.Run()
 	return
 }
